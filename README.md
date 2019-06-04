@@ -17,7 +17,7 @@ https://github.com/hacker-home/Airbnb-booking-proxy
 
 > This module is a booking portal on Airbnb listing page
 
-If you have any questions or feedbacks, please feel free to contact me!
+If you have any questions or feedback, please feel free to contact me!
 
 ## Requirements
 
@@ -33,14 +33,14 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 This module is using docker-compose for deployment.
 
-You should check the './db/index.js' file before deploy(change the host)!
+You should check the './db/index.js' file before deploying(change the host)!
 
-And don't forget to build 'bundle.js' with webpack on production mode using command below.
+And don't forget to build 'bundle.js' with webpack on production mode using the command below.
 ```sh
 npm run build
 ```
 
-In './booking' directory, there is a dockerFile for building image of database
+In './booking' directory, there is a dockerFile for building the image of database
 
 When you try to deploy, run 
 ```sh
@@ -65,7 +65,8 @@ From within the root directory:
 npm install
 
 
-// to run the server (using nodemon)
+// to run the server (using nodemon), if you try to deploy, 
+// please change this script to use node in package.json
 npm start
 
 // build bundle.js on production mode
