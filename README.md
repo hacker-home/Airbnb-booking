@@ -9,10 +9,14 @@
   - https://github.com/hacker-home/Airbnb-reviews
   - https://github.com/hacker-home/Airbnb-photos
 
+My proxy server is here!
+https://github.com/hacker-home/Airbnb-booking-proxy
 
 ## Usage
 
 > This module is for booking on Airbnb listing page
+
+> If you have any questions or feedbacks, please feel free to contact me!
 
 ## Requirements
 
@@ -46,7 +50,10 @@ Copy this docker-compose.yml file and change 'build' script to 'image' and chang
 From within the root directory:
 
 ```sh
+// before you run any files, please run this script
 npm install
+
+
 // to run the server (using nodemon)
 npm start
 
