@@ -10,13 +10,14 @@
   - https://github.com/hacker-home/Airbnb-photos
 
 My proxy server is here!
+
 https://github.com/hacker-home/Airbnb-booking-proxy
 
 ## Usage
 
-> This module is for booking on Airbnb listing page
+> This module is a booking portal on Airbnb listing page
 
-> If you have any questions or feedbacks, please feel free to contact me!
+If you have any questions or feedbacks, please feel free to contact me!
 
 ## Requirements
 
@@ -27,17 +28,25 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 - Webpack
 - React
 
+
 ## Deploying
 
 This module is using docker-compose for deployment.
 You should check the './db/index.js' file before deploy(change the host)!
+And don't forget to build 'bundle.js' with webpack on production mode using
+```sh
+npm run build
+```
 
-'./booking' there is a dockerFile for building image of database
+In './booking' directory, there is a dockerFile for building image of database
 
-When you try to deploy, run 'docker-compose up' from the root directory,
-and push those images to the docker hub.
+When you try to deploy, run 
+```sh
+docker-compose up
+```
+from the root directory, and push those images to your docker hub.
 
-In your instance, make another docker-compose.yml with vim.
+In your instance, make another docker-compose.yml file with vim.
 ```sh
 vim docker-compose.yml
 ```
