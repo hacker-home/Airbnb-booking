@@ -32,8 +32,10 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 ## Deploying
 
 This module is using docker-compose for deployment.
+
 You should check the './db/index.js' file before deploy(change the host)!
-And don't forget to build 'bundle.js' with webpack on production mode using
+
+And don't forget to build 'bundle.js' with webpack on production mode using command below.
 ```sh
 npm run build
 ```
