@@ -1,4 +1,4 @@
-# Project Name
+# Airbnb-booking
 
 > Airbnb Booking module
 
@@ -9,31 +9,54 @@
   - https://github.com/hacker-home/Airbnb-reviews
   - https://github.com/hacker-home/Airbnb-photos
 
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
 
 ## Usage
 
-> This module is for booking
+> This module is for booking on Airbnb listing page
 
 ## Requirements
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- etc
+- MySQL
+- Webpack
+- React
 
-## Development
+## Deploying
+
+This module is using docker-compose for deployment.
+You should check the './db/index.js' file before deploy(change the host)!
+
+'./booking' there is a dockerFile for building image of database
+
+When you try to deploy, run 'docker-compose up' from the root directory,
+and push those images to the docker hub.
+
+In your instance, make another docker-compose.yml with vim.
+```sh
+vim docker-compose.yml
+```
+
+Copy this docker-compose.yml file and change 'build' script to 'image' and change directory to the name of the images.
+
 
 ### Installing Dependencies
 
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
+// to run the server (using nodemon)
+npm start
+
+// build bundle.js on production mode
+npm run build
+
+// build bundle.js on development mode and watching
+npm react-dev
+
+// create database and seed
+npm run seed
 ```
 
