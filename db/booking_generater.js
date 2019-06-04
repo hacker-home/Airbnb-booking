@@ -125,4 +125,4 @@ function createBookingData(num) {
   });
 }
 
-createBookingData(500);
+createBookingData(50);

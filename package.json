@@ -6,8 +6,9 @@
   "scripts": {
     "test": "jest --coverage",
     "start": "nodemon server/index.js",
-    "build": "webpack -d --watch",
-    "createdatabase": "mysql -u root <db/schema.sql"
+    "build": "webpack --config webpack.config.prod.js",
+    "react-dev": "webpack -d --watch",
+    "seed": "mysql -u root <db/schema.sql && node db/room_generater.js && db/booking_generater.js"
   },
   "lint-staged": {
     "*.js": [
@@ -57,6 +58,7 @@
     "babel": "^6.23.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-export-extensions": "^6.22.0",
+    "compression-webpack-plugin": "^2.0.0",
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -73,6 +75,7 @@
     "style-loader": "^0.13.2",
     "typescript-babel-jest": "^1.0.6",
     "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "webpack-merge": "^4.2.1"
   }
 }

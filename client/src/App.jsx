@@ -32,22 +32,21 @@ export default class App extends React.Component {
     this.updateRoomState = this.updateRoomState.bind(this);
     this.updateBookedDates = this.updateBookedDates.bind(this);
     this.handleRendering = this.handleRendering.bind(this);
+    this.initialize = this.initialize.bind(this);
   }
 
   componentDidMount() {
-    const { roomId } = this.state;
-    this.getRoomData(roomId);
-    this.getBookingData(roomId);
+    this.initialize();
   }
 
   getRoomData() {
-    const list = window.location.href.match(/id\s*=\s*(.*)/);
-    if (list) {
+    const link = window.location.href.match(/id\s*=\s*(.*)/);
+    if (link) {
       $.ajax({
-        url: `/room/${list[1]}`,
+        url: `/room?id=${link[1]}`,
         type: 'GET',
         error: (err) => {
-          throw err;
+          console.log(err);
         },
         success: (result) => {
           this.updateRoomState(result);
@@ -55,10 +54,10 @@ export default class App extends React.Component {
       });
     } else {
       $.ajax({
-        url: '/room/?id=1',
+        url: '/room?id=1',
         type: 'GET',
         error: (err) => {
-          throw err;
+          console.log(err);
         },
         success: (result) => {
           this.updateRoomState(result);
@@ -68,34 +67,36 @@ export default class App extends React.Component {
   }
 
   getBookingData() {
-    const list = window.location.href.match(/id\s*=\s*(.*)/);
-    if (list) {
+    const link = window.location.href.match(/id\s*=\s*(.*)/);
+    if (link) {
       $.ajax({
-        url: `/booking/${list[1]}`,
+        url: `/booking?id=${link[1]}`,
         type: 'GET',
         error: (err) => {
-          throw err;
+          console.log(err);
         },
         success: (result) => {
-          console.log(result);
           this.updateBookedDates(result);
         },
       });
     } else {
       $.ajax({
-        url: '/booking/?id=1',
+        url: '/booking?id=1',
         type: 'GET',
         error: (err) => {
-          throw err;
+          console.log(err);
         },
         success: (result) => {
-          console.log(result);
           this.updateBookedDates(result);
         },
       });
     }
   }
 
+  initialize() {
+    this.getRoomData();
+    this.getBookingData();
+  }
 
   handleRendering() {
     this.setState({

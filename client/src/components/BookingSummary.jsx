@@ -21,7 +21,6 @@ export default class BookingSummary extends React.Component {
     } else {
       makeBooking(roomId, email);
     }
-    window.location.reload();
   }
 
   handleChange(e) {
