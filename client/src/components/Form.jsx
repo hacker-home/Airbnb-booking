@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/extensions */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -49,12 +51,18 @@ export default class Form extends React.Component {
     this.makeBooking = this.makeBooking.bind(this);
     this.bookButtonClick = this.bookButtonClick.bind(this);
     this.closeBookingPopup = this.closeBookingPopup.bind(this);
+    this.formInitialize = this.formInitialize.bind(this);
   }
 
   onDayClick(e, dateContext, cb1, cb2) {
-    const { checkInClicked, checkOutClicked, checkOut } = this.state;
+    const {
+      checkInClicked, checkOutClicked, checkIn, checkOut,
+    } = this.state;
+    const { maxNight } = this.props;
     if (checkInClicked) {
-      if (dateContext.format('MM/DD/YYYY') > checkOut) {
+      if (checkOut !== '' && moment(checkOut, 'MM/DD/YYYY').subtract(maxNight, 'd') > dateContext) {
+        // Check Max Night
+        // Over max length -> Set check in and reset check out
         this.setState({
           checkIn: dateContext.format('MM/DD/YYYY'),
           checkOut: '',
@@ -62,12 +70,21 @@ export default class Form extends React.Component {
       } else {
         this.setState({
           checkIn: dateContext.format('MM/DD/YYYY'),
+          checkOut: '',
         }, cb1());
       }
     } else if (checkOutClicked) {
-      this.setState({
-        checkOut: dateContext.format('MM/DD/YYYY'),
-      }, cb2(), this.guestExpandToggle(e), this.handleBothUnclicked());
+      if (checkOut !== '' && (moment(checkIn, 'MM/DD/YYYY').add(maxNight + 1, 'd') < dateContext || moment(checkIn, 'MM/DD/YYYY') > dateContext)) {
+        // Set CheckIn as new date and reset checkout
+        this.setState({
+          checkIn: dateContext.format('MM/DD/YYYY'),
+          checkOut: '',
+        }, cb2(), this.guestExpandToggle(e), this.handleBothUnclicked(), cb1());
+      } else if (checkIn !== dateContext.format('MM/DD/YYYY')) {
+        this.setState({
+          checkOut: dateContext.format('MM/DD/YYYY'),
+        }, cb2(), this.guestExpandToggle(e), this.handleBothUnclicked());
+      }
     }
   }
 
@@ -226,12 +243,14 @@ export default class Form extends React.Component {
     };
     value = JSON.stringify(value);
     $.ajax({
-      url: `/booking?roomId=${roomId}`,
+      url: `/booking?id=${roomId}`,
       type: 'POST',
       contentType: 'application/json',
       data: value,
-      success: (data) => {
-        console.log(data);
+      success: (err, result) => {
+        if (result === 'success') {
+          this.formInitialize();
+        }
       },
     });
   }
@@ -251,6 +270,29 @@ export default class Form extends React.Component {
 
   closeBookingPopup() {
     this.setState({
+      bookingSummaryExpand: false,
+    });
+  }
+
+  formInitialize() {
+    this.setState({
+      adults: 1,
+      children: 0,
+      infants: 0,
+      adultMessage: '1 guest',
+      childrenMessage: '',
+      infantMessage: '',
+      guestSelected: false,
+      guestExpand: false,
+      totalCostPerNight: 0,
+      totalCost: 0,
+      calculatedTax: 0,
+      selectedNights: '',
+      checkIn: '',
+      checkOut: '',
+      selectedDate: 0,
+      checkInClicked: false,
+      checkOutClicked: false,
       bookingSummaryExpand: false,
     });
   }

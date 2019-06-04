@@ -84,7 +84,11 @@ export default class CalendarDayItem extends React.Component {
         className={css.days}
         onMouseEnter={this.toggle}
         onMouseLeave={this.toggle}
-        onClick={e => clickDate(e, day)}
+        onClick={(e) => {
+          if (!isDayDisabled) {
+            clickDate(e, day);
+          }
+        }}
         style={
                         {
                           background: (

@@ -11,10 +11,16 @@ app.use(express.static(path.join(__dirname, '../public/dist')));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/room/:id', (req, res) => {
+// app.get('*.js', (req, res, next) => {
+//   req.url = `${req.url}.gz`;
+//   res.set('Content-Encoding', 'gzip');
+//   next();
+// });
+
+app.get('/room', (req, res) => {
   db.Room.findAll({
     where: {
-      id: req.params.id,
+      id: req.query.id,
     },
   })
     .then((result) => {
@@ -25,10 +31,10 @@ app.get('/room/:id', (req, res) => {
     });
 });
 
-app.get('/booking/:id', (req, res) => {
+app.get('/booking', (req, res) => {
   db.Booking.findAll({
     where: {
-      roomId: req.params.id,
+      roomId: req.query.id,
     },
   })
     .then((result) => {

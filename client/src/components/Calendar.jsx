@@ -131,7 +131,7 @@ export default class Calendar extends React.Component {
       return dateContext.set('date', day) < moment(checkIn, 'MM/DD/YYYY').startOf('date')
         || (dateContext.set('date', day).startOf('date') > moment(checkIn, 'MM/DD/YYYY').startOf('date') && dateContext.set('date', day) <= moment(checkIn, 'MM/DD/YYYY').startOf('date').add(minNight, 'd'))
         || (closestFutureBookedDate != null && dateContext.set('date', day) >= moment(closestFutureBookedDate, 'MM/DD/YYYY'))
-        || dateContext.set('date', day) >= moment(checkIn, 'MM/DD/YYYY').startOf('date').add(maxNight, 'd');
+        || dateContext.set('date', day) >= moment(checkIn, 'MM/DD/YYYY').startOf('date').add(maxNight + 1, 'd');
     }
     return false;
   }

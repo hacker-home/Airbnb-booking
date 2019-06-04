@@ -38,7 +38,7 @@ function generateRandomRooms(num) {
         infants: randomIntFromInterval(0, 2),
       },
       min_night: randomIntFromInterval(1, 2),
-      max_night: randomIntFromInterval(2, 6),
+      max_night: randomIntFromInterval(3, 6),
       ratings: (Math.random() * (5.0 - 1.0) + 1.0).toFixed(1),
       num_reviews: randomIntFromInterval(0, 100),
     };
