@@ -48,7 +48,7 @@
     "nodemon": "^1.19.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "sequelize": "^5.8.6",
+    "sequelize": "^5.15.1",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
