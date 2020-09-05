@@ -1,49 +1,27 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('booking', 'root', null, {
-  host: 'localhost',
-  dialect: 'mysql',
-});
+const db = new Sequelize('bookings', 'joshuabrito', null, {
+  dialect: "postgres",
+  port: 5432,
 
-
-const Room = sequelize.define('rooms', {
-  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-  roomname: Sequelize.STRING,
-  price: Sequelize.INTEGER,
-  cleaning_fee: Sequelize.INTEGER,
-  service_fee: Sequelize.INTEGER,
-  tax: Sequelize.INTEGER,
-  max_guest: Sequelize.STRING,
-  min_night: Sequelize.INTEGER,
-  max_night: Sequelize.INTEGER,
-  ratings: Sequelize.DECIMAL(2, 1),
-  num_reviews: Sequelize.INTEGER,
-});
-
-const Booking = sequelize.define('bookings', {
-  email: Sequelize.STRING,
-  guests: Sequelize.STRING,
-  check_in: Sequelize.DATE,
-  check_out: Sequelize.DATE,
-  createdAt: Sequelize.DATE,
-  roomId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: 'rooms',
-      key: 'id',
-    },
+  replication: {
+    read: [
+      { host: "127.0.0.1", username: "joshuabrito", password: "" },
+      { host: "127.0.0.1", username: "joshuabrito", password: "" },
+      { host: "127.0.0.1", username: "joshuabrito", password: "" },
+      { host: "127.0.0.1", username: "joshuabrito", password: "" },
+    ],
+    write: { host: "127.0.0.1", username: "joshuabrito", password: "" },
   },
-});
+  pool: {
+    max: 100,
+    idle: 30000
+  },
+  logging: false,
+})
 
-Room.hasMany(Booking, { foreignKey: 'roomId' });
-Booking.belongsTo(Room, { foreignKey: 'roomId' });
+db.authenticate()
+  .then(() => console.log('database connected'))
+  .catch(err => console.log(err))
 
-sequelize.authenticate();
-
-Room.sync();
-Booking.sync();
-
-module.exports = {
-  Room,
-  Booking,
-};
+module.exports = db;

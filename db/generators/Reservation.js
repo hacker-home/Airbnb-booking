@@ -4,17 +4,15 @@ const fs = require('fs');
 
 const memo = {};
 
-const Reservation = function (roomId, startDate = null, endDate = null, checkIn = null, checkOut = null, email = null, adults = 1, children = 0, infants = 0, createdAt) {
+const Reservation = function (roomId, checkIn = null, checkOut = null, email = null, adults = 1, children = 0, infants = 0, createdAt) {
   this.roomId = roomId;
-  this.startDate = startDate;
-  this.endDate = endDate;
   this.checkIn = checkIn;
   this.checkOut = checkOut;
   this.email = email;
   this.adults = adults;
   this.children = children;
   this.infants = infants;
-  this.daysBooked = `[${this.checkIn}, ${this.checkOut}]` || null;
+  this.daysBooked = `["${moment.utc(this.checkIn).format('l LT')}","${moment.utc(this.checkOut).format('l LT')}")` || null;
   this.createdAt = createdAt || Date.now();
 }
 
@@ -22,6 +20,7 @@ const Reservation = function (roomId, startDate = null, endDate = null, checkIn 
 Reservation.prototype.randomIntFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
 // make sure this is within a 3 month time frame
 Reservation.prototype.randomDate = (start, end) => {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -35,10 +34,10 @@ Reservation.prototype.isNotOverlapWithOtherBookingDates = (roomId, startDate, en
   // Iterate all current bookings on room and then check new start and end date overlapping or not
   for (let i = 0; i < bookingsOnRoom.length; i += 1) {
     const booking = bookingsOnRoom[i];
-    if (!((moment(this.startDate) < moment(booking.checkIn)
-      && moment(this.endDate) <= moment(booking.checkIn))
-      || (moment(this.startDate) >= moment(booking.checkOut)
-        && moment(this.endDate) > moment(booking.checkOut)))) {
+    if (!((moment(this.checkIn) < moment(booking.checkIn)
+      && moment(this.checkOut) <= moment(booking.checkIn))
+      || (moment(this.checkIn) >= moment(booking.checkOut)
+        && moment(this.checkOut) > moment(booking.checkOut)))) {
       return false;
     }
   }
@@ -54,7 +53,7 @@ Reservation.prototype.generateRandomBooking = () => {
   let adults = Reservation.prototype.randomIntFromInterval(1, 5);
   let children = Reservation.prototype.randomIntFromInterval(0, 5);
   let infants = Reservation.prototype.randomIntFromInterval(0, 5);
-  let daysBooked = `[${this.startDate}, ${this.endDate}]`;
+  let daysBooked = `${this.startDate}, ${this.endDate}`;
   let createdAt = moment(startDate).subtract(Reservation.prototype.randomIntFromInterval(0, 30), 'days').toDate();
   let trial = 0;
 
@@ -64,13 +63,13 @@ Reservation.prototype.generateRandomBooking = () => {
       return null;
     }
   }
-  const randomReservation = new Reservation(roomId, startDate, endDate, startDate, endDate, email, adults, children, infants, createdAt);
+  const randomReservation = new Reservation(roomId, startDate, endDate, email, adults, children, infants, createdAt);
   return randomReservation;
 }
 
-const writable = fs.createWriteStream(__dirname + '/bookingData.json');
+const writable = fs.createWriteStream(__dirname + '/data/bookingData.json');
 function writeThirtyMilBookings(writer, encoding, callback) {
-  let i = 10;
+  let i = 15000000;
   let id = 0;
   function write() {
     let ok = true;

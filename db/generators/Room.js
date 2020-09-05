@@ -42,10 +42,10 @@ Room.prototype.generateRandomRoom = id => {
 };
 
 // Below code is a lightly modified version of official documentation [https://nodejs.org/api/stream.html#stream_event_drain]
-const writable = fs.createWriteStream(__dirname + '/roomData.json');
+const writable = fs.createWriteStream(__dirname + '/data/roomData.json');
 
 function writeTenMilRooms(writer, encoding, callback) {
-  let i = 10;
+  let i = 10000000;
   let id = 0;
   function write() {
     let ok = true;

@@ -4,7 +4,4 @@ db/dbconfig.js
 coverage/clover.xml
 coverage/lcov-report/index.html
 coverage
-db/bookingData.csv
-db/bookingData.json
-db/roomData.csv
-db/roomData.json
+db/generators/data

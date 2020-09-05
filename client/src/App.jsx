@@ -5,6 +5,7 @@ import moment from 'moment';
 import Info from './components/Info.jsx';
 import Form from './components/Form.jsx';
 import css from '../../public/dist/App.css';
+import axios from 'axios';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -42,54 +43,76 @@ export default class App extends React.Component {
   getRoomData() {
     const link = window.location.href.match(/id\s*=\s*(.*)/);
     if (link) {
-      $.ajax({
-        url: `/room?id=${link[1]}`,
-        type: 'GET',
-        error: (err) => {
-          console.log(err);
-        },
-        success: (result) => {
-          this.updateRoomState(result);
-        },
-      });
+      console.log('link', link)
+      axios.get(`/room?id=${link[1]}`)
+        .then(({ data }) => {
+          this.updateRoomState(data);
+        })
+        .catch(err => console.log(err))
+      // $.ajax({
+      //   url: `/room?id=${link[1]}`,
+      //   type: 'GET',
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      //   success: (result) => {
+      //     console.log('result', result)
+      //     this.updateRoomState(result);
+      //   },
+      // });
     } else {
-      $.ajax({
-        url: '/room?id=1',
-        type: 'GET',
-        error: (err) => {
-          console.log(err);
-        },
-        success: (result) => {
-          this.updateRoomState(result);
-        },
-      });
+      axios.get('/room?id=1')
+        .then(({ data }) => {
+          this.updateRoomState(data);
+        })
+        .catch(err => console.log(err))
+      // $.ajax({
+      //   url: '/room?id=1',
+      //   type: 'GET',
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      //   success: (result) => {
+      //     this.updateRoomState(result);
+      //   },
+      // });
     }
   }
 
   getBookingData() {
     const link = window.location.href.match(/id\s*=\s*(.*)/);
     if (link) {
-      $.ajax({
-        url: `/booking?id=${link[1]}`,
-        type: 'GET',
-        error: (err) => {
-          console.log(err);
-        },
-        success: (result) => {
-          this.updateBookedDates(result);
-        },
-      });
+      axios.get(`/booking?id=${link[1]}`)
+        .then(({ data }) => {
+          this.updateBookedDates(data);
+        })
+        .catch(err => console.log(err))
+      // $.ajax({
+      //   url: `/booking?id=${link[1]}`,
+      //   type: 'GET',
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      //   success: (result) => {
+      //     this.updateBookedDates(result);
+      //   },
+      // });
     } else {
-      $.ajax({
-        url: '/booking?id=1',
-        type: 'GET',
-        error: (err) => {
-          console.log(err);
-        },
-        success: (result) => {
-          this.updateBookedDates(result);
-        },
-      });
+      axios.get('/booking?id=1')
+        .then(({ data }) => {
+          this.updateBookedDates(data);
+        })
+        .catch(err => console.log(err))
+      // $.ajax({
+      //   url: '/booking?id=1',
+      //   type: 'GET',
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      //   success: (result) => {
+      //     this.updateBookedDates(result);
+      //   },
+      // });
     }
   }
 
@@ -119,6 +142,7 @@ export default class App extends React.Component {
 
   updateRoomState(result) {
     this.setState({
+      roomId: result.id,
       roomInfo: {
         roomname: result.roomname,
         price: result.price,
