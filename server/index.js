@@ -17,11 +17,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../public/dist')));
 
-// app.get('*.js', (req, res, next) => {
-//   req.url = `${req.url}.gz`;
-//   res.set('Content-Encoding', 'gzip');
-//   next();
-// });
+app.get('*.js', (req, res, next) => {
+  req.url = `${req.url}.gz`;
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
 
 app.use('/', router);
 

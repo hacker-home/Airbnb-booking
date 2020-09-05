@@ -2,7 +2,7 @@ const db = require('../../db/index.js');
 const Reservations = require('../../db/models/reservations.js')
 
 const get = ((req, res) => {
-  Reservations.findAll({
+  Reservations.findOne({
     where: {
       room_id: req.query.id,
     },
@@ -11,7 +11,7 @@ const get = ((req, res) => {
       res.send(result);
     })
     .catch((err) => {
-      console.log('Error: ', err)
+      console.log(err)
       res.sendStatus(500);
     });
 });
@@ -28,13 +28,16 @@ const post = ((req, res) => {
     check_out: new Date(req.body.check_out),
     createdAt: new Date(req.body.createdAt),
   };
-  Reservations.create(data)
-    .catch((err) => {
-      console.log('Error: ', err);
-      res.sendStatus(500);
-    })
+
+  Reservations.bulkCreate([
+    data,
+  ], { validate: true })
     .then(() => {
       res.sendStatus(200);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
     });
 });
 
