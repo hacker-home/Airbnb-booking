@@ -33,10 +33,8 @@ export default class CalendarDayItem extends React.Component {
     if (checkIn === '') {
       return false;
     }
-
     const d1 = moment(checkIn, 'MM/DD/YYYY').format('MM/DD/YYYY');
     const d2 = dateContext.set('date', day).format('MM/DD/YYYY');
-
     return d1 === d2;
   }
 
@@ -90,21 +88,21 @@ export default class CalendarDayItem extends React.Component {
           }
         }}
         style={
-                        {
-                          background: (
-                            (checkIn === '' && isHover) ? 'rgb(228,231,231)'
-                              : (this.isSameDateWithCheckIn() ? 'rgb(25,165,153)' : (((checkOut === '' && isHover) || this.isDateBetweenCheckInAndCandidateCheckOut()) ? 'rgb(180,241,235)' : ((this.isDateBetweenCheckInAndCheckOut() ? 'rgb(25,165,153)' : null))))
-                          ),
-                        }
-                    }
+          {
+            background: (
+              (checkIn === '' && isHover) ? 'rgb(228,231,231)'
+                : (this.isSameDateWithCheckIn() ? 'rgb(25,165,153)' : (((checkOut === '' && isHover) || this.isDateBetweenCheckInAndCandidateCheckOut()) ? 'rgb(180,241,235)' : ((this.isDateBetweenCheckInAndCheckOut() ? 'rgb(25,165,153)' : null))))
+            ),
+          }
+        }
       >
         <span
           className={css.day}
           role="button"
           disabled={isDayDisabled}
           style={
-                        { color: this.isSameDateWithCheckIn() || this.isDateBetweenCheckInAndCheckOut() ? 'white' : 'rgb(72,72,72)' }
-                    }
+            { color: this.isSameDateWithCheckIn() || this.isDateBetweenCheckInAndCheckOut() ? 'white' : 'rgb(72,72,72)' }
+          }
         >
           {day}
         </span>

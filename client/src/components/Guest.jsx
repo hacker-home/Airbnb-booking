@@ -21,6 +21,7 @@ const Guest = (props) => {
     updateTotalNights,
     guestButtonMessage,
   } = props;
+
   return (
     <div className={css.guest}>
       <div className={css.guestSection}>Guests</div>

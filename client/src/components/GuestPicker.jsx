@@ -16,7 +16,8 @@ const GuestPicker = (props) => {
     guestExpandToggle,
   } = props;
 
-  const maxGuests = JSON.parse(guest);
+  const maxGuests = guest;
+  console.log('testing', adults);
 
   return (
     <ClickOutsideOfGuestPicker clickOutsideOfGuestPicker={clickOutsideOfGuestPicker}>
