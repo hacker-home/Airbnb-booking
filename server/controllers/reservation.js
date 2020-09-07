@@ -1,14 +1,21 @@
 const db = require('../../db/index.js');
 const Reservations = require('../../db/models/reservations.js')
+const cache = require('../cache.js');
 
 const get = ((req, res) => {
+  const id = req.query.id;
   Reservations.findOne({
     where: {
-      room_id: req.query.id,
+      room_id: id,
     },
   })
     .then((result) => {
-      res.send(result);
+      if (result === null) { res.sendStatus(200); }
+      else {
+        const reservation = result.dataValues;
+        cache.saveToCache(id.toString(), JSON.stringify(reservation));
+        res.send(reservation);
+      }
     })
     .catch((err) => {
       console.log(err)

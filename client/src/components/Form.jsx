@@ -242,7 +242,7 @@ export default class Form extends React.Component {
       roomId,
       createdAt: moment().format(),
     };
-    // value = JSON.stringify(value);
+    value = JSON.stringify(value);
     // console.log('test', value)
     axios.post(`/booking?id=${roomId}`, value)
       .then(() => {

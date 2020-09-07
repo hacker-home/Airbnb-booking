@@ -17,6 +17,7 @@ const GuestPicker = (props) => {
   } = props;
 
   const maxGuests = guest;
+  console.log('testing', adults);
 
   return (
     <ClickOutsideOfGuestPicker clickOutsideOfGuestPicker={clickOutsideOfGuestPicker}>

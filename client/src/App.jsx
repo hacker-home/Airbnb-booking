@@ -1,6 +1,5 @@
 /* eslint-disable import/extensions */
 import React from 'react';
-import $ from 'jquery';
 import moment from 'moment';
 import Info from './components/Info.jsx';
 import Form from './components/Form.jsx';
@@ -43,7 +42,6 @@ export default class App extends React.Component {
   getRoomData() {
     const link = window.location.href.match(/id\s*=\s*(.*)/);
     if (link) {
-      console.log('link', link)
       axios.get(`/room?id=${link[1]}`)
         .then(({ data }) => {
           this.updateRoomState(data);
@@ -141,6 +139,11 @@ export default class App extends React.Component {
   }
 
   updateRoomState(result) {
+    const maxGuest = {
+      adults: result.max_adults,
+      children: result.max_children,
+      infants: result.max_infants
+    }
     this.setState({
       roomId: result.id,
       roomInfo: {
@@ -149,7 +152,7 @@ export default class App extends React.Component {
         cleaningFee: result.cleaning_fee,
         serviceFee: result.service_fee,
         tax: result.tax,
-        maxGuest: result.max_guest,
+        maxGuest: maxGuest,
         minNight: result.min_night,
         maxNight: result.max_night,
         ratings: result.ratings,
