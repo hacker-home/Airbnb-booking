@@ -10,7 +10,6 @@ const Reservations = db.define('reservations', {
   adults: Sequelize.INTEGER,
   children: Sequelize.INTEGER,
   infants: Sequelize.INTEGER,
-  days_booked: Sequelize.TEXT,
   createdAt: Sequelize.DATE,
   room_id: {
     type: Sequelize.INTEGER,

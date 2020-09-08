@@ -12,7 +12,7 @@ const Reservation = function (roomId, checkIn = null, checkOut = null, email = n
   this.adults = adults;
   this.children = children;
   this.infants = infants;
-  this.daysBooked = `["${moment.utc(this.checkIn).format('l LT')}","${moment.utc(this.checkOut).format('l LT')}")` || null;
+  // this.daysBooked = `["${moment.utc(this.checkIn).format('l LT')}","${moment.utc(this.checkOut).format('l LT')}")` || null;
   this.createdAt = createdAt || Date.now();
 }
 
@@ -53,7 +53,7 @@ Reservation.prototype.generateRandomBooking = () => {
   let adults = Reservation.prototype.randomIntFromInterval(1, 5);
   let children = Reservation.prototype.randomIntFromInterval(0, 5);
   let infants = Reservation.prototype.randomIntFromInterval(0, 5);
-  let daysBooked = `${this.startDate}, ${this.endDate}`;
+  // let daysBooked = `${this.startDate}, ${this.endDate}`;
   let createdAt = moment(startDate).subtract(Reservation.prototype.randomIntFromInterval(0, 30), 'days').toDate();
   let trial = 0;
 
@@ -69,7 +69,7 @@ Reservation.prototype.generateRandomBooking = () => {
 
 const writable = fs.createWriteStream(__dirname + '/data/bookingData.json');
 function writeThirtyMilBookings(writer, encoding, callback) {
-  let i = 15000000;
+  let i = 10000000;
   let id = 0;
   function write() {
     let ok = true;

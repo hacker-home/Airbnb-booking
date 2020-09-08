@@ -47,33 +47,12 @@ export default class App extends React.Component {
           this.updateRoomState(data);
         })
         .catch(err => console.log(err))
-      // $.ajax({
-      //   url: `/room?id=${link[1]}`,
-      //   type: 'GET',
-      //   error: (err) => {
-      //     console.log(err);
-      //   },
-      //   success: (result) => {
-      //     console.log('result', result)
-      //     this.updateRoomState(result);
-      //   },
-      // });
     } else {
       axios.get('/room?id=1')
         .then(({ data }) => {
           this.updateRoomState(data);
         })
         .catch(err => console.log(err))
-      // $.ajax({
-      //   url: '/room?id=1',
-      //   type: 'GET',
-      //   error: (err) => {
-      //     console.log(err);
-      //   },
-      //   success: (result) => {
-      //     this.updateRoomState(result);
-      //   },
-      // });
     }
   }
 
@@ -85,32 +64,12 @@ export default class App extends React.Component {
           this.updateBookedDates(data);
         })
         .catch(err => console.log(err))
-      // $.ajax({
-      //   url: `/booking?id=${link[1]}`,
-      //   type: 'GET',
-      //   error: (err) => {
-      //     console.log(err);
-      //   },
-      //   success: (result) => {
-      //     this.updateBookedDates(result);
-      //   },
-      // });
     } else {
       axios.get('/booking?id=1')
         .then(({ data }) => {
           this.updateBookedDates(data);
         })
         .catch(err => console.log(err))
-      // $.ajax({
-      //   url: '/booking?id=1',
-      //   type: 'GET',
-      //   error: (err) => {
-      //     console.log(err);
-      //   },
-      //   success: (result) => {
-      //     this.updateBookedDates(result);
-      //   },
-      // });
     }
   }
 

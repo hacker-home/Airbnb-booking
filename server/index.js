@@ -1,4 +1,4 @@
-// const newrelic = require('newrelic');
+const newrelic = require('newrelic');
 const express = require('express');
 const http = require('http');
 const path = require('path');
@@ -7,18 +7,15 @@ const cors = require('cors');
 const router = require('./routes/routes.js');
 const compression = require('compression');
 
-///////////////////////////////////////////////////
-
-///////////////////////////////////////////////////
 const db = require('../db/index.js');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const app = express();
 
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 5432;
 
 http.globalAgent.maxSockets = Infinity;
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(compression());
 app.use(cors());
 app.use(bodyParser.json());
