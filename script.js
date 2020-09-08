@@ -1,12 +1,10 @@
 import http from "k6/http";
 import { Rate } from "k6/metrics";
-
+import biasedNumber from "./biasedNumGenerator";
 
 export default function () {
-  const randomIntFromInterval = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-  let random = randomIntFromInterval(1, 10000000);
+
+  let random = biasedNumber.biasedNumGenerator();
   let headers = { 'Content-Type': 'application/json' };
   let data = {
     check_in: "2020-09-13T00:00:00-07:00",
@@ -20,8 +18,8 @@ export default function () {
   data = JSON.stringify(data);
 
   let responses = http.batch([
-    ['GET', `http://localhost:3333/room?id=${random}`, { tags: { ctype: 'application/json' } }],
-    ['GET', `http://localhost:3333/booking?id=${random}`, { tags: { ctype: 'application/json' } }],
-    ['POST', `http://localhost:3333/booking?id=${random}`, data, { headers: headers }]
+    ['GET', `http://54.219.10.222/room?id=${random}`, { tags: { ctype: 'application/json' } }],
+    ['GET', `http://54.219.10.222/booking?id=${random}`, { tags: { ctype: 'application/json' } }],
+    ['POST', `http://54.219.10.222/booking?id=${random}`, data, { headers: headers }]
   ]);
 }
