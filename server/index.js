@@ -11,7 +11,7 @@ const db = require('../db/index.js');
 // const morgan = require('morgan');
 const app = express();
 
-const PORT = process.env.PORT || 5432;
+const PORT = process.env.PORT || 3333;
 
 http.globalAgent.maxSockets = Infinity;
 
