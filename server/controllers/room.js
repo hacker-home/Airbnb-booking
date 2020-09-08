@@ -11,7 +11,6 @@ exports.get = ((req, res) => {
   })
     .then((result) => {
       const room = result[0].dataValues;
-      console.log('this val has not been cached yet');
       cache.saveToCache(id.toString(), JSON.stringify(room));
       res.send(room);
     })

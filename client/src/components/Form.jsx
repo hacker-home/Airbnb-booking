@@ -249,17 +249,6 @@ export default class Form extends React.Component {
         this.formInitialize();
       })
       .catch(err => console.log(err))
-    // $.ajax({
-    //   url: `/booking?id=${roomId}`,
-    //   type: 'POST',
-    //   contentType: 'application/json',
-    //   data: value,
-    //   success: (err, result) => {
-    //     if (result === 'success') {
-    //       this.formInitialize();
-    //     }
-    //   },
-    // });
   }
 
   bookButtonClick() {
