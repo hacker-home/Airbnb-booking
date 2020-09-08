@@ -5,6 +5,7 @@ import Info from './components/Info.jsx';
 import Form from './components/Form.jsx';
 import css from '../../public/dist/App.css';
 import axios from 'axios';
+import idGenerator from '../../biasedNumGenerator.js';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export default class App extends React.Component {
         maxNight: 0,
         ratings: '',
         numReviews: 0,
+        biasedNum: idGenerator.biasedNumGenerator()
       },
       bookedDates: [],
       rendering: true,
@@ -48,7 +50,7 @@ export default class App extends React.Component {
         })
         .catch(err => console.log(err))
     } else {
-      axios.get('/room?id=1')
+      axios.get(`/room?id=${this.state.biasedNum}`)
         .then(({ data }) => {
           this.updateRoomState(data);
         })
@@ -65,7 +67,7 @@ export default class App extends React.Component {
         })
         .catch(err => console.log(err))
     } else {
-      axios.get('/booking?id=1')
+      axios.get(`/booking?id=${this.state.biasedNum}`)
         .then(({ data }) => {
           this.updateBookedDates(data);
         })
