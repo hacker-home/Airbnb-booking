@@ -23,8 +23,8 @@ export default class App extends React.Component {
         maxNight: 0,
         ratings: '',
         numReviews: 0,
-        biasedNum: idGenerator.biasedNumGenerator()
       },
+      biasedNum: idGenerator(),
       bookedDates: [],
       rendering: true,
     };

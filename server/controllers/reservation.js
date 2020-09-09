@@ -24,13 +24,14 @@ const get = ((req, res) => {
 });
 
 const post = ((req, res) => {
-  const guests = req.body.guests;
+  console.log('testing', req.body)
+  
   const data = {
     room_id: req.body.roomId,
     email: req.body.email,
-    adults: guests.adults,
-    children: guests.children,
-    infants: guests.infants,
+    adults: req.body.guests.adults,
+    children: req.body.guests.children,
+    infants: req.body.guests.infants,
     check_in: new Date(req.body.check_in),
     check_out: new Date(req.body.check_out),
     createdAt: new Date(req.body.createdAt),

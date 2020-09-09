@@ -231,7 +231,7 @@ export default class Form extends React.Component {
       children,
       infants,
     };
-    guests = JSON.stringify(guests);
+    // guests = guests;
     const checkInDate = moment(checkIn, 'MM/DD/YYYY').format();
     const checkOutDate = moment(checkOut, 'MM/DD/YYYY').format();
     let value = {
@@ -242,8 +242,7 @@ export default class Form extends React.Component {
       roomId,
       createdAt: moment().format(),
     };
-    value = JSON.stringify(value);
-    // console.log('test', value)
+    
     axios.post(`/booking?id=${roomId}`, value)
       .then(() => {
         this.formInitialize();
