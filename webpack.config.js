@@ -1,9 +1,10 @@
 const path = require('path');
-
+const nodeExternals = require('webpack-node-externals');
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/public/dist');
+const SRV_DIR = path.join(__dirname, '/server')
 
-module.exports = {
+const client = {
   entry: `${SRC_DIR}/index.jsx`,
   output: {
     filename: 'bundle.js',
@@ -38,3 +39,24 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
 };
+
+// const server = {
+//   mode: "development",
+//   target: "node",
+//   node: {
+//     __dirname: false,
+//   },
+//   externals: [nodeExternals()],
+//   entry: {
+//     "index.js": path.resolve(__dirname, "server/index.js"),
+//   },
+//   module: {
+//     rules: [js],
+//   },
+//   output: {
+//     path: path.resolve(__dirname, "dist/node"),
+//     filename: "[name]",
+//   },
+// };
+
+module.exports = [client];
