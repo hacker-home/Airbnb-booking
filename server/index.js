@@ -1,5 +1,6 @@
 
-const newrelic = require('newrelic');
+//const newrelic = require('newrelic');
+const expressStaticGzip = require('express-static-gzip');
 const renderReact = require('./templates/renderReact.js');
 const App = require('../client/src/App.jsx').default;
 const layout = require('./templates/layout.js');
@@ -12,19 +13,37 @@ const cors = require('cors');
 const router = require('./routes/routes.js');
 const compression = require('compression');
 
-const api = 'http://localhost:3333/bundle.js'
+const api = 'http://sdcloadbalancer-1748024864.us-west-1.elb.amazonaws.com/bundle.js'
 
 const db = require('../db/index.js');
-const morgan = require('morgan');
+//const morgan = require('morgan');
 const app = express();
 
-const PORT = 3333;
-const React = require('React');
+const PORT = 80;
+const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 http.globalAgent.maxSockets = Infinity;
 
 //app.use(morgan('dev'));
+
+app.use(compression());
+app.use(cors());
+app.use(bodyParser.json());
+
+app.get('/bundle.js', expressStaticGzip(__dirname + '../public/dist', {
+  enableBrotli: true,
+  orderPreference: ['br', 'gz'],
+  setHeaders: function (res, path) {
+     res.setHeader("Cache-Control", "public/dist, max-age=31536000");
+  },
+}));
+
+// app.get('*.js', (req, res, next) => {
+//   req.url = `${req.url}.gz`;
+//   res.set('Content-Encoding', 'gzip');
+//   next();
+// });
 
 app.use('^/$', (req, res, next) => {
   fs.readFile(path.join(__dirname, '../public/dist/index.html'), "utf-8", (err, data) => {
@@ -45,15 +64,7 @@ app.use('^/$', (req, res, next) => {
   });
 });
 
-app.use(compression());
-app.use(cors());
-app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../public/dist')));
-// app.get('*.js', (req, res, next) => {
-//   req.url = `${req.url}.gz`;
-//   res.set('Content-Encoding', 'gzip');
-//   next();
-// });
 
 app.use('/', router);
 
