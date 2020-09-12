@@ -1,18 +1,18 @@
 const Sequelize = require('sequelize');
 
 
- const db = new Sequelize('bookings', 'postgres', 'Lostinsauce92.', {
+ const db = new Sequelize('bookings', 'postgres', '', {
    dialect: "postgres",
    port: 5432,
 
    replication: {
      read: [
-       { host: "172.31.31.215", username: "postgres", password: "Lostinsauce92." },
-       { host: "172.31.31.215", username: "postgres", password: "Lostinsauce92." },
-       { host: "172.31.31.215", username: "postgres", password: "Lostinsauce92." },
+       { host: "172.31.31.215", username: "postgres", password: "" },
+       { host: "172.31.31.215", username: "postgres", password: "" },
+       { host: "172.31.31.215", username: "postgres", password: "" },
        { host: "172.31.31.215", username: "postgres", password: "Lostinsauce92." },
      ],
-     write: { host: "172.31.31.215", username: "postgres", password: "Lostinsauce92." },
+     write: { host: "172.31.31.215", username: "postgres", password: "" },
    },
    pool: {
      max: 100,
