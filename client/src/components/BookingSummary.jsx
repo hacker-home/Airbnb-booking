@@ -1,20 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import css from '../../../public/dist/App.css';
 
-export default class BookingSummary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
+const BookingSummary = props => {
+  const [email, setEmail] = useState('');
 
-  handleClick(e) {
-    const { email } = this.state;
-    const { roomId, makeBooking } = this.props;
+const handleClick = (e) => {
+    const { roomId, makeBooking } = props;
     e.preventDefault();
     if (email === '') {
       alert('Please enter a valid email.');
@@ -24,8 +16,8 @@ export default class BookingSummary extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({
-      email: e.target.value,
+    setEmail({...email,
+      [e.target.name]: e.target.value,
     });
   }
 

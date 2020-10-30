@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import $ from 'jquery';
+import axios from 'axios';
 import Date from './Date.jsx';
 import Cost from './Cost.jsx';
 import Guest from './Guest.jsx';
@@ -230,7 +230,7 @@ export default class Form extends React.Component {
       children,
       infants,
     };
-    guests = JSON.stringify(guests);
+    // guests = guests;
     const checkInDate = moment(checkIn, 'MM/DD/YYYY').format();
     const checkOutDate = moment(checkOut, 'MM/DD/YYYY').format();
     let value = {
@@ -241,18 +241,12 @@ export default class Form extends React.Component {
       roomId,
       createdAt: moment().format(),
     };
-    value = JSON.stringify(value);
-    $.ajax({
-      url: `/booking?id=${roomId}`,
-      type: 'POST',
-      contentType: 'application/json',
-      data: value,
-      success: (err, result) => {
-        if (result === 'success') {
-          this.formInitialize();
-        }
-      },
-    });
+
+    axios.post(`/booking?id=${roomId}`, value)
+      .then(() => {
+        this.formInitialize();
+      })
+      .catch(err => console.log(err))
   }
 
   bookButtonClick() {

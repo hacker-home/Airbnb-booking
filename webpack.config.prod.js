@@ -2,7 +2,8 @@ const webpack = require('webpack');
 
 const path = require('path');
 const CompressionPlugin = require('compression-webpack-plugin');
-
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const BrotliPlugin = require('brotli-webpack-plugin');
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/public/dist');
 
@@ -37,6 +38,20 @@ module.exports = {
       },
     ],
   },
+  /*optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
+      })
+    ],
+  },*/
   resolve: {
     extensions: ['.js', '.jsx'],
   },
@@ -48,14 +63,21 @@ module.exports = {
       },
     }),
     // new webpack.optimize.DedupePlugin(), // dedupe similar code
-    // new webpack.optimize.UglifyJsPlugin(), // minify everything
+    // new config.optimization.minimize(),
+    // minify everything
     new webpack.optimize.AggressiveMergingPlugin(), // Merge chunks
     new CompressionPlugin({
       filename: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
-      minRatio: 0.8,
+      minRatio: 0.7,
+    }),
+    new BrotliPlugin({
+      asset: '[path].br[query]',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.7
     }),
   ],
 };

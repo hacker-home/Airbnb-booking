@@ -4,3 +4,5 @@ db/dbconfig.js
 coverage/clover.xml
 coverage/lcov-report/index.html
 coverage
+db/generators/data
+.env
