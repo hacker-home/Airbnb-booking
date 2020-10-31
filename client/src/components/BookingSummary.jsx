@@ -20,7 +20,7 @@ const handleClick = (e) => {
       [e.target.name]: e.target.value,
     });
   }
-
+// in process of changing below to functional component
   render() {
     const { email } = this.state;
     const {
