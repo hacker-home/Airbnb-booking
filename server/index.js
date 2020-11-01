@@ -23,9 +23,7 @@ const PORT = 80;
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
-http.globalAgent.maxSockets = Infinity;
-
-//app.use(morgan('dev'));
+app.use(morgan('dev'));
 
 app.use(compression());
 app.use(cors());
