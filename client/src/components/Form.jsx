@@ -1,6 +1,3 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable import/extensions */
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';

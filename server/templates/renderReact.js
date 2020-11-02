@@ -16,15 +16,15 @@ export default (req) => {
   );
   return `
   <!DOCTYPE html>
-  <html lang='en'>
-    <head>
-      <title>Document</title>
-      <meta chartset="UTF-8">
-      <script src="bundle.js" defer>
-      </script>
-      <style>${[...css].join('')}
-      </style>
-    </head>
+  <html lang="en">
+  <head>
+    <title>Server Document</title>
+    <meta charset="UTF-8">
+    <script src="client.bundle.js" defer>
+    </script>
+    <style>${[...css].join('')}
+    </style>
+   </head>
     <body>
       <div class="body" id="booking">${content}</div>
     </body>

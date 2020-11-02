@@ -8,7 +8,7 @@ const config = {
   entry: `${SRC_DIR}/index.jsx`,
   target: 'web',
   output: {
-    filename: 'bundle.js',
+    filename: 'client.bundle.js',
     path: DIST_DIR,
     sourceMapFilename: '[name].js.map'
   }

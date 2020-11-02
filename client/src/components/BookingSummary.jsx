@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import withStyles from "isomorphic-style-loader/withStyles";
 import css from "../../../public/dist/App.css";
 
 const BookingSummary = (props) => {
@@ -210,7 +209,7 @@ const BookingSummary = (props) => {
   );
 };
 
-export default withStyles(css)(BookingSummary);
+export default BookingSummary;
 
 BookingSummary.propTypes = {
   roomId: PropTypes.number,
