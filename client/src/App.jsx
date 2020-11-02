@@ -6,8 +6,9 @@ import Form from './components/Form.jsx';
 import css from '../../public/dist/App.css';
 import axios from 'axios';
 import idGenerator from '../../biasedNumGenerator.js';
+import withStyles from 'isomorphic-style-loader/withStyles';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -177,4 +178,6 @@ export default class App extends React.Component {
       </div>
     );
   }
-}
+};
+
+export default withStyles(css)(App);

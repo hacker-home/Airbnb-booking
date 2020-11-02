@@ -2,7 +2,7 @@
   "name": "Airbnb-booking",
   "version": "1.0.0",
   "description": "> Airbnb Booking module",
-  "main": "server/index.js",
+  "main": "server/build/server.bundle.js",
   "scripts": {
     "test": "jest --coverage",
     "dev": "npm-run-all --parallel dev:*",
@@ -37,6 +37,7 @@
   "homepage": "https://github.com/hacker-home/Airbnb-booking#readme",
   "dependencies": {
     "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
@@ -56,6 +57,7 @@
     "faker": "^4.1.0",
     "ignore-styles": "^5.0.1",
     "iltorb": "^2.4.5",
+    "isomorphic-style-loader": "^5.1.0",
     "jest": "^24.9.0",
     "moment": "^2.27.0",
     "morgan": "^1.10.0",
@@ -69,6 +71,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "redis": "^3.0.2",
     "sequelize": "^5.22.3"
   },
