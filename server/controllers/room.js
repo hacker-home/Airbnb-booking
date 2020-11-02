@@ -1,5 +1,5 @@
-const db = require('../../db/index.js');
-const Room = require('../../db/models/rooms.js');
+const db = require('../../database/index.js');
+const Room = require('../../database/models/rooms.js');
 const cache = require('../cache.js');
 
 exports.get = ((req, res) => {

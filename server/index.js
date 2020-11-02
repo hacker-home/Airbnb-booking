@@ -13,7 +13,7 @@ const compression = require('compression');
 
 const api = 'http://sdcloadbalancer-1748024864.us-west-1.elb.amazonaws.com/bundle.js'
 
-const db = require('../db');
+const database = require('../database');
 const morgan = require('morgan');
 const app = express();
 

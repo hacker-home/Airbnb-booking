@@ -1,5 +1,5 @@
-const db = require('../../db/index.js');
-const Reservations = require('../../db/models/reservations.js')
+const db = require('../../database/index.js');
+const Reservations = require('../../database/models/reservations.js')
 const cache = require('../cache.js');
 
 const get = ((req, res) => {
@@ -25,7 +25,7 @@ const get = ((req, res) => {
 
 const post = ((req, res) => {
   console.log('testing', req.body)
-  
+
   const data = {
     room_id: req.body.roomId,
     email: req.body.email,

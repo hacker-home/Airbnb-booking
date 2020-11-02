@@ -1,9 +1,9 @@
 node_modules
 public/dist/bundle.js
-db/dbconfig.js
+database/index.js
 coverage/clover.xml
 coverage/lcov-report/index.html
 coverage
-db/generators/data
+database/generators/data
 .env
 server/build
