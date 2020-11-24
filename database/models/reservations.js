@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const Room = require('./rooms.js');
 const db = require('../index.js')
 
-const Reservations = db.define('reservations', {
+const Reservations = db.define('bookings', {
   id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
   check_in: Sequelize.DATE,
   check_out: Sequelize.DATE,
@@ -11,17 +11,17 @@ const Reservations = db.define('reservations', {
   children: Sequelize.INTEGER,
   infants: Sequelize.INTEGER,
   createdAt: Sequelize.DATE,
-  room_id: {
+  roomId: {
     type: Sequelize.INTEGER,
     references: {
       model: 'rooms',
-      key: 'id',
+      key: 'roomId',
     },
   },
 }, { timestamps: false });
 
 Reservations.associate = (models) => {
-  Reservations.belongsTo(Room, { foreignKey: 'room_id' });
-}
+  Reservations.belongsTo(models.Room, { foreignKey: 'roomId' });
+};
 
 module.exports = Reservations;

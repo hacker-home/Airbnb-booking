@@ -123,11 +123,7 @@ const App = (props) => {
   };
   const app = (
     <div className={css.app}>
-      <button
-        type="submit"
-        className={css.xbutton}
-        onClick={handleRendering}
-      >
+      <button type="submit" className={css.xbutton} onClick={handleRendering}>
         <svg
           viewBox="0 0 24 24"
           role="img"

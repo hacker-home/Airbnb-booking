@@ -6,7 +6,7 @@ const get = ((req, res) => {
   const id = req.query.id;
   Reservations.findOne({
     where: {
-      room_id: id,
+      roomId: id,
     },
   })
     .then((result) => {
@@ -27,7 +27,7 @@ const post = ((req, res) => {
   console.log('testing', req.body)
 
   const data = {
-    room_id: req.body.roomId,
+    roomId: req.body.roomId,
     email: req.body.email,
     adults: req.body.guests.adults,
     children: req.body.guests.children,

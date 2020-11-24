@@ -20,8 +20,8 @@ export default (req) => {
   <head>
     <title>Server Document</title>
     <meta charset="UTF-8">
-    <script src="client.bundle.js" defer>
-    </script>
+     <script src="client.bundle.js" defer>
+     </script>
     <style>${[...css].join('')}
     </style>
    </head>

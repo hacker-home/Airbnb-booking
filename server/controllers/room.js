@@ -6,7 +6,7 @@ exports.get = ((req, res) => {
   const id = req.query.id;
   Room.findAll({
     where: {
-      id: id,
+      roomId: id,
     },
   })
     .then((result) => {

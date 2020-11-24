@@ -3,7 +3,7 @@ const Reservations = require('./reservations.js');
 const db = require('../index.js')
 
 const Room = db.define('rooms', {
-  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  roomId: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
   roomname: Sequelize.STRING,
   price: Sequelize.INTEGER,
   cleaning_fee: Sequelize.DOUBLE,
@@ -18,8 +18,12 @@ const Room = db.define('rooms', {
   num_reviews: Sequelize.INTEGER,
 }, { timestamps: false });
 
-Reservations.associate = (models) => {
-  Room.hasMany(Reservations, { foreignKey: 'room_id' });
-}
+Room.associate = (models) => {
+  Room.hasMany(models.Reservations, { foreignKey: 'roomId' });
+};
 
 module.exports = Room;
+
+
+
+

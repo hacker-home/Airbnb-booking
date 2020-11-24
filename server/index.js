@@ -22,8 +22,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.static(path.join(__dirname, '..', 'public', 'dist')));
-app.get('*', (req, res) => {
+app.use(express.static('public/dist'));
+app.get('/', (req, res) => {
   res.send(renderReact(req));
 });
 app.use('/', router);
