@@ -11,6 +11,7 @@ import router from './routes/routes.js';
 const path = require('path');
 const cors = require('cors');
 const compression = require('compression');
+const bodyParser = require('body-parser');
 
 const api = 'http://sdcloadbalancer-1748024864.us-west-1.elb.amazonaws.com/bundle.js'
 
@@ -22,6 +23,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.static('public/dist'));
 app.get('/', (req, res) => {
   res.send(renderReact(req));

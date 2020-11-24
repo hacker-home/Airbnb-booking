@@ -24,8 +24,6 @@ const get = ((req, res) => {
 });
 
 const post = ((req, res) => {
-  console.log('testing', req.body)
-
   const data = {
     roomId: req.body.roomId,
     email: req.body.email,

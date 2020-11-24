@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import axios from 'axios';
-import Date from './Date.jsx';
-import Cost from './Cost.jsx';
-import Guest from './Guest.jsx';
-import BookingSummary from './BookingSummary.jsx';
-import css from '../../../public/dist/App.css';
+import React from "react";
+import PropTypes from "prop-types";
+import moment from "moment";
+import axios from "axios";
+import Date from "./Date.jsx";
+import Cost from "./Cost.jsx";
+import Guest from "./Guest.jsx";
+import BookingSummary from "./BookingSummary.jsx";
+import css from "../../../public/dist/App.css";
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -15,17 +15,17 @@ export default class Form extends React.Component {
       adults: 1,
       children: 0,
       infants: 0,
-      adultMessage: '1 guest',
-      childrenMessage: '',
-      infantMessage: '',
+      adultMessage: "1 guest",
+      childrenMessage: "",
+      infantMessage: "",
       guestSelected: false,
       guestExpand: false,
       totalCostPerNight: 0,
       totalCost: 0,
       calculatedTax: 0,
-      selectedNights: '',
-      checkIn: '',
-      checkOut: '',
+      selectedNights: "",
+      checkIn: "",
+      checkOut: "",
       selectedDate: 0,
       checkInClicked: false,
       checkOutClicked: false,
@@ -52,35 +52,57 @@ export default class Form extends React.Component {
   }
 
   onDayClick(e, dateContext, cb1, cb2) {
-    const {
-      checkInClicked, checkOutClicked, checkIn, checkOut,
-    } = this.state;
+    const { checkInClicked, checkOutClicked, checkIn, checkOut } = this.state;
     const { maxNight } = this.props;
     if (checkInClicked) {
-      if (checkOut !== '' && moment(checkOut, 'MM/DD/YYYY').subtract(maxNight, 'd') > dateContext) {
+      if (
+        checkOut !== "" &&
+        moment(checkOut, "MM/DD/YYYY").subtract(maxNight, "d") > dateContext
+      ) {
         // Check Max Night
         // Over max length -> Set check in and reset check out
-        this.setState({
-          checkIn: dateContext.format('MM/DD/YYYY'),
-          checkOut: '',
-        }, cb1());
+        this.setState(
+          {
+            checkIn: dateContext.format("MM/DD/YYYY"),
+            checkOut: "",
+          },
+          cb1()
+        );
       } else {
-        this.setState({
-          checkIn: dateContext.format('MM/DD/YYYY'),
-          checkOut: '',
-        }, cb1());
+        this.setState(
+          {
+            checkIn: dateContext.format("MM/DD/YYYY"),
+            checkOut: "",
+          },
+          cb1()
+        );
       }
     } else if (checkOutClicked) {
-      if (checkOut !== '' && (moment(checkIn, 'MM/DD/YYYY').add(maxNight + 1, 'd') < dateContext || moment(checkIn, 'MM/DD/YYYY') > dateContext)) {
+      if (
+        checkOut !== "" &&
+        (moment(checkIn, "MM/DD/YYYY").add(maxNight + 1, "d") < dateContext ||
+          moment(checkIn, "MM/DD/YYYY") > dateContext)
+      ) {
         // Set CheckIn as new date and reset checkout
-        this.setState({
-          checkIn: dateContext.format('MM/DD/YYYY'),
-          checkOut: '',
-        }, cb2(), this.guestExpandToggle(e), this.handleBothUnclicked(), cb1());
-      } else if (checkIn !== dateContext.format('MM/DD/YYYY')) {
-        this.setState({
-          checkOut: dateContext.format('MM/DD/YYYY'),
-        }, cb2(), this.guestExpandToggle(e), this.handleBothUnclicked());
+        this.setState(
+          {
+            checkIn: dateContext.format("MM/DD/YYYY"),
+            checkOut: "",
+          },
+          cb2(),
+          this.guestExpandToggle(e),
+          this.handleBothUnclicked(),
+          cb1()
+        );
+      } else if (checkIn !== dateContext.format("MM/DD/YYYY")) {
+        this.setState(
+          {
+            checkOut: dateContext.format("MM/DD/YYYY"),
+          },
+          cb2(),
+          this.guestExpandToggle(e),
+          this.handleBothUnclicked()
+        );
       }
     }
   }
@@ -89,7 +111,7 @@ export default class Form extends React.Component {
     const { adults, children, infants } = this.state;
     if (adults === 1) {
       this.setState({
-        adultMessage: '1 guest',
+        adultMessage: "1 guest",
       });
     } else {
       this.setState({
@@ -99,7 +121,7 @@ export default class Form extends React.Component {
 
     if (children === 1) {
       this.setState({
-        childrenMessage: ', 1 child',
+        childrenMessage: ", 1 child",
       });
     } else {
       this.setState({
@@ -109,7 +131,7 @@ export default class Form extends React.Component {
 
     if (infants === 1) {
       this.setState({
-        infantMessage: ', 1 infant',
+        infantMessage: ", 1 infant",
       });
     } else {
       this.setState({
@@ -119,24 +141,33 @@ export default class Form extends React.Component {
   }
 
   guestSelectToggle(e) {
-    this.setState({
-      guestSelected: true,
-    }, this.calculateCostPerNight);
+    this.setState(
+      {
+        guestSelected: true,
+      },
+      this.calculateCostPerNight
+    );
     e.preventDefault();
   }
 
   guestExpandToggle(e) {
     const { guestExpand } = this.state;
     if (!guestExpand) {
-      this.setState({
-        guestExpand: true,
-        guestSelected: true,
-      }, this.calculateCostPerNight);
+      this.setState(
+        {
+          guestExpand: true,
+          guestSelected: true,
+        },
+        this.calculateCostPerNight
+      );
     } else {
-      this.setState({
-        guestExpand: false,
-        guestSelected: true,
-      }, this.calculateCostPerNight);
+      this.setState(
+        {
+          guestExpand: false,
+          guestSelected: true,
+        },
+        this.calculateCostPerNight
+      );
     }
     this.updateTotalNights();
     e.preventDefault();
@@ -149,9 +180,7 @@ export default class Form extends React.Component {
   }
 
   calculateCostPerNight() {
-    const {
-      price, serviceFee, cleaningFee, tax,
-    } = this.props;
+    const { price, serviceFee, cleaningFee, tax } = this.props;
     const { selectedNights } = this.state;
     let cost = price + serviceFee + cleaningFee;
     let totalTax = cost * (tax / 100);
@@ -168,16 +197,22 @@ export default class Form extends React.Component {
 
   increaseGuest(e) {
     e.preventDefault(e);
-    this.setState({
-      [e.target.id]: this.state[e.target.id] + 1,
-    }, this.guestButtonMessage);
+    this.setState(
+      {
+        [e.target.id]: this.state[e.target.id] + 1,
+      },
+      this.guestButtonMessage
+    );
   }
 
   decreaseGuest(e) {
     e.preventDefault(e);
-    this.setState({
-      [e.target.id]: this.state[e.target.id] - 1,
-    }, this.guestButtonMessage);
+    this.setState(
+      {
+        [e.target.id]: this.state[e.target.id] - 1,
+      },
+      this.guestButtonMessage
+    );
   }
 
   handleCheckinClicked() {
@@ -203,33 +238,34 @@ export default class Form extends React.Component {
 
   updateTotalNights() {
     const { checkOut, checkIn } = this.state;
-    let nights = moment(checkOut, 'MM/DD/YY') - moment(checkIn, 'MM/DD/YY');
-    nights = moment(nights).format('D');
+    let nights = moment(checkOut, "MM/DD/YY") - moment(checkIn, "MM/DD/YY");
+    nights = moment(nights).format("D");
     this.setState({
       selectedNights: nights,
     });
   }
 
   calendarInitialize(e) {
-    this.setState({
-      checkIn: '',
-      checkOut: '',
-    }, this.handleCheckinClicked());
+    this.setState(
+      {
+        checkIn: "",
+        checkOut: "",
+      },
+      this.handleCheckinClicked()
+    );
     e.preventDefault();
   }
 
   makeBooking(roomId, email) {
-    const {
-      checkIn, checkOut, adults, children, infants,
-    } = this.state;
+    const { checkIn, checkOut, adults, children, infants } = this.state;
     let guests = {
       adults,
       children,
       infants,
     };
     // guests = guests;
-    const checkInDate = moment(checkIn, 'MM/DD/YYYY').format();
-    const checkOutDate = moment(checkOut, 'MM/DD/YYYY').format();
+    const checkInDate = moment(checkIn, "MM/DD/YYYY").format();
+    const checkOutDate = moment(checkOut, "MM/DD/YYYY").format();
     let value = {
       check_in: checkInDate,
       check_out: checkOutDate,
@@ -239,16 +275,17 @@ export default class Form extends React.Component {
       createdAt: moment().format(),
     };
 
-    axios.post(`/booking?id=${roomId}`, value)
+    axios
+      .post(`/booking?id=${roomId}`, value)
       .then(() => {
         this.formInitialize();
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   bookButtonClick() {
     const { checkOut, checkIn, guestSelected } = this.state;
-    if (checkIn === '' || checkOut === '') {
+    if (checkIn === "" || checkOut === "") {
       this.handleCheckinClicked();
     } else if (!guestSelected) {
       this.guestExpandToggle();
@@ -270,17 +307,17 @@ export default class Form extends React.Component {
       adults: 1,
       children: 0,
       infants: 0,
-      adultMessage: '1 guest',
-      childrenMessage: '',
-      infantMessage: '',
+      adultMessage: "1 guest",
+      childrenMessage: "",
+      infantMessage: "",
       guestSelected: false,
       guestExpand: false,
       totalCostPerNight: 0,
       totalCost: 0,
       calculatedTax: 0,
-      selectedNights: '',
-      checkIn: '',
-      checkOut: '',
+      selectedNights: "",
+      checkIn: "",
+      checkOut: "",
       selectedDate: 0,
       checkInClicked: false,
       checkOutClicked: false,
@@ -365,21 +402,28 @@ export default class Form extends React.Component {
               updateTotalNights={this.updateTotalNights}
               clickOutsideOfGuestPicker={this.clickOutsideOfGuestPicker}
             />
-            {selectedNights !== 'Invalid date' && guestSelected && !guestExpand
-              ? (
-                <Cost
-                  price={price}
-                  cleaningFee={cleaningFee}
-                  serviceFee={serviceFee}
-                  tax={calculatedTax}
-                  totalCost={totalCost}
-                  selectedNights={selectedNights}
-                />
-              ) : null}
+            {selectedNights !== "Invalid date" &&
+            guestSelected &&
+            !guestExpand ? (
+              <Cost
+                price={price}
+                cleaningFee={cleaningFee}
+                serviceFee={serviceFee}
+                tax={calculatedTax}
+                totalCost={totalCost}
+                selectedNights={selectedNights}
+              />
+            ) : null}
           </div>
         </form>
         <div className={css.bookbutton}>
-          <button className={css.book} type="button" onClick={this.bookButtonClick}><div>Book</div></button>
+          <button
+            className={css.book}
+            type="button"
+            onClick={this.bookButtonClick}
+          >
+            <div>Book</div>
+          </button>
           {bookingSummaryExpand ? (
             <BookingSummary
               roomId={roomId}
@@ -401,7 +445,6 @@ export default class Form extends React.Component {
           ) : null}
         </div>
       </section>
-
     );
   }
 }
@@ -422,7 +465,7 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  guest: '',
+  guest: "",
   price: 0,
   cleaningFee: 0,
   serviceFee: 0,
@@ -431,7 +474,7 @@ Form.defaultProps = {
   minNight: 0,
   maxNight: 0,
   roomId: 1,
-  roomname: '',
+  roomname: "",
   reviews: 0,
-  ratings: '',
+  ratings: "",
 };

@@ -57,6 +57,7 @@ const App = (props) => {
       axios
         .get(`/booking?id=${link[1]}`)
         .then(({ data }) => {
+          console.log(data);
           updateBookedDates(data);
         })
         .catch((err) => console.log(err));
@@ -64,6 +65,7 @@ const App = (props) => {
       axios
         .get(`/booking?id=${state.biasedNum}`)
         .then(({ data }) => {
+          console.log(data);
           updateBookedDates(data);
         })
         .catch((err) => console.log(err));
@@ -98,7 +100,7 @@ const App = (props) => {
     };
     setState({
       ...state,
-      roomId: result.id,
+      roomId: result.roomId,
       roomInfo: {
         roomname: result.roomname,
         price: result.price,

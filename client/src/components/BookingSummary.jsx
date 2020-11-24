@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import css from "../../../public/dist/App.css";
 
 const BookingSummary = (props) => {
-  const [state, setState] = useState(props);
+  const [state, setState] = useState({ ...props, email: "" });
 
   const handleClick = (e) => {
     const { roomId, makeBooking } = props;
+    const { email } = state;
     e.preventDefault();
     email === ""
       ? alert("Please enter a valid email.")
@@ -63,15 +64,15 @@ const BookingSummary = (props) => {
             />
           </svg>
         </button>
-        <form onSubmit={this.handleClick}>
+        <form onSubmit={handleClick}>
           <label htmlFor="email" className={css.email}>
             Email:
             <input
               style={{ width: "70%", height: "15px" }}
               type="text"
               name="email"
-              value={email}
-              onChange={this.handleChange}
+              value={state.email}
+              onChange={handleChange}
             />
           </label>
         </form>
@@ -201,7 +202,7 @@ const BookingSummary = (props) => {
           </table>
           <div className={css.dividingSection} />
         </div>
-        <button className={css.book} type="submit" onClick={this.handleClick}>
+        <button className={css.book} type="submit" onClick={handleClick}>
           Sign Up
         </button>
       </div>
